@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taymaz Hukuk Bürosu — Av. Eslem Batın Taymaz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 60px 80px; position: relative; overflow: hidden; }
+  .hero-bg-text { position: absolute; right: -20px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(120px, 18vw, 260px); color: transparent; -webkit-text-stroke: 1px rgba(201,168,76,0.07); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -4px; }
+  .hero-line { width: 60px; height: 1px; background: var(--gold); margin-bottom: 32px; animation: expandLine 1.2s ease forwards; transform-origin: left; }
+  @keyframes expandLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .hero-tag { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(48px, 7vw, 96px); font-weight: 900; line-height: 1.0; margin-bottom: 32px; opacity: 0; animation: fadeUp 0.9s ease 0.5s forwards; max-width: 700px; }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-desc { font-size: 18px; line-height: 1.8; color: var(--muted); max-width: 480px; margin-bottom: 48px; font-weight: 300; opacity: 0; animation: fadeUp 0.9s ease 0.7s forwards; }
+  .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s ease 0.9s forwards; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  .stats-bar { background: var(--dark3); border-top: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15); padding: 40px 60px; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat-item { text-align: center; padding: 20px; border-right: 1px solid rgba(201,168,76,0.1); }
+  .stat-item:last-child { border-right: none; }
+  .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--gold); line-height: 1; display: block; }
+  .stat-label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 8px; display: block; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(201,168,76,0.1); }
+  .service-card { background: var(--dark2); padding: 48px 40px; transition: background 0.3s; position: relative; overflow: hidden; text-decoration: none; color: inherit; display: block; cursor: pointer; }
+  .service-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: var(--dark3); }
+  .service-card-arrow { position: absolute; top: 40px; right: 40px; color: var(--gold); font-size: 20px; opacity: 0; transition: opacity 0.3s, transform 0.3s; }
+  .service-card:hover .service-card-arrow { opacity: 1; transform: translateX(4px); }
+  .service-icon { font-size: 32px; margin-bottom: 24px; display: block; }
+  .service-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 16px; color: var(--cream); }
+  .service-card p { font-size: 15px; line-height: 1.8; color: var(--muted); font-weight: 300; }
+
+  .blog-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2px; background: rgba(201,168,76,0.1); }
+  .blog-card { background: var(--dark2); padding: 40px; cursor: pointer; transition: background 0.3s; }
+  .blog-card:hover { background: var(--dark3); }
+  .blog-tag { display: inline-block; padding: 4px 14px; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+  .blog-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.4; margin-bottom: 16px; color: var(--cream); transition: color 0.3s; }
+  .blog-card:hover h3 { color: var(--gold-light); }
+  .blog-card.featured h3 { font-size: 28px; }
+  .blog-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; font-weight: 300; }
+  .blog-meta { display: flex; align-items: center; gap: 16px; font-size: 12px; color: var(--muted); letter-spacing: 1px; border-top: 1px solid rgba(201,168,76,0.1); padding-top: 20px; flex-wrap: wrap; }
+  .blog-meta span:first-child { color: var(--gold); }
+
+  .about-section { padding: 100px 60px; background: var(--dark3); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-left .big-quote { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3.5vw, 46px); font-style: italic; line-height: 1.4; color: var(--cream); margin-bottom: 32px; }
+  .about-left .big-quote span { color: var(--gold); }
+  .about-left p { font-size: 16px; line-height: 1.9; color: var(--muted); font-weight: 300; margin-bottom: 16px; }
+  .about-right { position: relative; }
+  .about-photo-frame { width: 100%; aspect-ratio: 3/4; background: var(--dark2); border: 1px solid rgba(201,168,76,0.15); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .about-photo-frame::before { content: 'FOTOĞRAF'; font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 4px; color: rgba(201,168,76,0.2); }
+  .about-photo-frame::after { content: ''; position: absolute; bottom: -1px; right: -1px; width: 80px; height: 80px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+  .about-badge { position: absolute; bottom: -20px; left: -20px; background: var(--gold); color: var(--dark); padding: 20px 24px; font-family: 'Bebas Neue', sans-serif; }
+  .about-badge .years { font-size: 40px; line-height: 1; display: block; }
+  .about-badge .years-label { font-size: 13px; letter-spacing: 2px; }
+
+  .contact-section { padding: 100px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 900; line-height: 1.1; margin-bottom: 24px; }
+  .contact-left h2 em { font-style: italic; color: var(--gold); }
+  .contact-left p { font-size: 16px; line-height: 1.8; color: var(--muted); margin-bottom: 40px; font-weight: 300; }
+  .contact-info-item { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(201,168,76,0.08); }
+  .contact-info-item:last-child { border-bottom: none; }
+  .contact-icon { width: 40px; height: 40px; border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 16px; flex-shrink: 0; }
+  .contact-info-text strong { display: block; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .contact-info-text span { font-size: 16px; color: var(--cream); }
+
+  @media (max-width: 768px) {
+    .hero { padding: 100px 24px 60px; }
+    .stats-bar { grid-template-columns: repeat(2,1fr); padding: 32px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .about-section { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+    .contact-section { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">TAYMAZ HUKUK BÜROSU</a>
+  <ul class="nav-links">
+    <li><a href="#hizmetler">Hizmetler</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#hakkinda">Hakkında</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+  </ul>
+  <a href="#iletisim" class="nav-cta">Danışma Al</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-text">HUKUK</div>
+  <div>
+    <div class="hero-line"></div>
+    <p class="hero-tag">Taymaz Hukuk Bürosu — Bucak / Burdur</p>
+    <h1>Haklarınız İçin <em>Kararlı</em> Bir Duruş</h1>
+    <p class="hero-desc">Hukuki süreçlerin karmaşıklığında yanınızdayım. Güçlü savunuculuk, net strateji ve şeffaf iletişimle haklarınızı koruyorum.</p>
+    <div class="hero-buttons">
+      <a href="#iletisim" class="btn-primary">Danışma Al →</a>
+      <a href="#blog" class="btn-secondary">Blog Yazılarım</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar reveal">
+  <div class="stat-item"><span class="stat-number" data-target="10">0</span><span class="stat-label">Çözülen Dava</span></div>
+  <div class="stat-item"><span class="stat-number" data-target="3">0</span><span class="stat-label">Yıllık Deneyim</span></div>
+  <div class="stat-item"><span class="stat-number" data-target="100">0</span><span class="stat-label">% Müvekkil Memnuniyeti</span></div>
+  <div class="stat-item"><span class="stat-number" data-target="6">0</span><span class="stat-label">Uzmanlık Alanı</span></div>
+</div>
+
+<section class="section" id="hizmetler">
+  <div class="section-header reveal">
+    <div style="display:flex;align-items:flex-end">
+      <span class="section-num">01</span>
+      <div class="section-title-wrap"><h2>Uzmanlık <span>Alanlarım</span></h2></div>
+    </div>
+    <a href="#iletisim" class="section-link">Danışma Al →</a>
+  </div>
+  <div class="services-grid reveal">
+    <a href="ceza-hukuku.html" class="service-card">
+      <span class="service-card-arrow">→</span>
+      <span class="service-icon">⚖️</span>
+      <h3>Ceza Hukuku</h3>
+      <p>Ceza davalarında güçlü savunuculuk. Soruşturma aşamasından mahkeme sürecine kadar her adımda yanınızdayım.</p>
+    </a>
+    <a href="ticaret-hukuku.html" class="service-card">
+      <span class="service-card-arrow">→</span>
+      <span class="service-icon">🏛️</span>
+      <h3>Ticaret Hukuku</h3>
+      <p>Şirket kuruluşu, sözleşme düzenleme, ticari uyuşmazlıkların çözümü ve ortaklık anlaşmazlıkları.</p>
+    </a>
+    <a href="gayrimenkul-hukuku.html" class="service-card">
+      <span class="service-card-arrow">→</span>
+      <span class="service-icon">🏠</span>
+      <h3>Gayrimenkul Hukuku</h3>
+      <p>Tapu uyuşmazlıkları, kira sözleşmeleri, kat mülkiyeti davaları ve taşınmaz alım-satım işlemleri.</p>
+    </a>
+    <a href="aile-hukuku.html" class="service-card">
+      <span class="service-card-arrow">→</span>
+      <span class="service-icon">👨‍👩‍👧</span>
+      <h3>Aile Hukuku</h3>
+      <p>Boşanma, nafaka, velayet ve mal paylaşımı davalarında duyarlı ve kararlı hukuki destek.</p>
+    </a>
+    <a href="is-hukuku.html" class="service-card">
+      <span class="service-card-arrow">→</span>
+      <span class="service-icon">📋</span>
+      <h3>İş Hukuku</h3>
+      <p>İşçi ve işveren hakları, haksız fesih, tazminat talepleri ve iş kazası davaları.</p>
+    </a>
+    <a href="miras-hukuku.html" class="service-card">
+      <span class="service-card-arrow">→</span>
+      <span class="service-icon">📜</span>
+      <h3>Miras Hukuku</h3>
+      <p>Vasiyetname düzenleme, miras paylaşımı, tereke davaları ve mirasçılık belgesi işlemleri.</p>
+    </a>
+  </div>
+</section>
+
+<div class="gold-divider"><span class="gold-divider-icon">◆</span></div>
+
+<section class="section" id="blog">
+  <div class="section-header reveal">
+    <div style="display:flex;align-items:flex-end">
+      <span class="section-num">02</span>
+      <div class="section-title-wrap"><h2>Hukuki <span>Bilgi</span> Köşesi</h2></div>
+    </div>
+    <a href="#" class="section-link">Tüm Yazılar →</a>
+  </div>
+  <div class="blog-grid reveal">
+    <div class="blog-card featured">
+      <span class="blog-tag">Öne Çıkan</span>
+      <h3>Kira Artışında Yasal Sınır: Kiracı ve Ev Sahibi Hakları</h3>
+      <p>Kira artış oranları, yasal düzenlemeler ve tarafların bilmesi gereken kritik haklar hakkında kapsamlı bir rehber.</p>
+      <div class="blog-meta"><span>Gayrimenkul Hukuku</span><span>·</span><span>8 dk okuma</span><span>·</span><span>Av. Eslem Batın Taymaz</span></div>
+    </div>
+    <div class="blog-card">
+      <span class="blog-tag">İş Hukuku</span>
+      <h3>Haksız Fesih Sonrası Alabileceğiniz Tazminatlar</h3>
+      <p>İşten çıkarılma durumunda kıdem, ihbar ve işe iade haklarınız.</p>
+      <div class="blog-meta"><span>İş Hukuku</span><span>·</span><span>5 dk okuma</span></div>
+    </div>
+    <div class="blog-card">
+      <span class="blog-tag">Aile Hukuku</span>
+      <h3>Boşanma Sürecinde Velayet Kararını Etkileyen Faktörler</h3>
+      <p>Mahkemelerin velayet kararı verirken göz önünde bulundurduğu kriterler.</p>
+      <div class="blog-meta"><span>Aile Hukuku</span><span>·</span><span>6 dk okuma</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="about-section" id="hakkinda">
+  <div class="about-left reveal">
+    <p class="big-quote">"Hukuk yalnızca bir meslek değil — <span>insanlara adalet için</span> uzanan bir el."</p>
+    <p>Bucak'ta kurduğum Taymaz Hukuk Bürosu ile müvekkillerime kişisel, samimi ve güçlü bir hukuki destek sunuyorum. Her davanın arkasında bir insan hikâyesi olduğunu bilerek çalışıyor; her müvekkili bizzat dinliyor ve en iyi sonucu elde etmek için çalışıyorum.</p>
+    <p>Bu blogda amacım hukuki bilgiyi herkes için anlaşılır kılmak. Çünkü haklarını bilen bir toplum, daha güçlü bir toplumdur.</p>
+    <br>
+    <a href="#iletisim" class="btn-primary">Tanışalım →</a>
+  </div>
+  <div class="about-right reveal">
+    <div class="about-photo-frame"></div>
+    <div class="about-badge"><span class="years">3+</span><span class="years-label">YIL DENEYİM</span></div>
+  </div>
+</section>
+
+<section class="contact-section" id="iletisim">
+  <div class="contact-left reveal">
+    <h2>Bugün <em>Harekete</em> Geçin</h2>
+    <p>Danışma görüşmesi için formu doldurun, en kısa sürede sizinle iletişime geçeyim.</p>
+    <div class="contact-info-item">
+      <div class="contact-icon">📍</div>
+      <div class="contact-info-text"><strong>Adres</strong><span>Bucak, Burdur</span></div>
+    </div>
+    <div class="contact-info-item">
+      <div class="contact-icon">📞</div>
+      <div class="contact-info-text"><strong>Telefon</strong><span>0543 562 24 69</span></div>
+    </div>
+    <div class="contact-info-item">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-info-text"><strong>E-posta</strong><span>batintaymaz@gmail.com</span></div>
+    </div>
+  </div>
+  <form class="contact-form reveal" action="https://formspree.io/f/xaqpqekr" method="POST">
+    <div class="form-group"><label>Adınız Soyadınız</label><input type="text" name="isim" placeholder="Ad Soyad" required></div>
+    <div class="form-group"><label>Telefon</label><input type="tel" name="telefon" placeholder="05XX XXX XX XX" required></div>
+    <div class="form-group">
+      <label>Hukuki Alan</label>
+      <select name="hukuki_alan" required>
+        <option value="">Seçiniz...</option>
+        <option>Ceza Hukuku</option><option>Ticaret Hukuku</option><option>Gayrimenkul Hukuku</option>
+        <option>Aile Hukuku</option><option>İş Hukuku</option><option>Miras Hukuku</option><option>Diğer</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Mesajınız</label><textarea name="mesaj" placeholder="Hukuki durumunuzu kısaca anlatınız..." required></textarea></div>
+    <button type="submit" class="form-submit">Danışma Talebi Gönder →</button>
+  </form>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">TAYMAZ HUKUK BÜROSU</a>
+  <ul class="footer-links">
+    <li><a href="#hizmetler">Hizmetler</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#hakkinda">Hakkında</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Av. Eslem Batın Taymaz · Tüm hakları saklıdır.</p>
+</footer>
+
+<script src="cursor.js"></script>
+</body>
+</html>
