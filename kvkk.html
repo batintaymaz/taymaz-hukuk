@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KVKK Aydınlatma Metni — Taymaz Hukuk Bürosu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0d;
+      --surface:  #141414;
+      --border:   #2a2a2a;
+      --gold:     #c9a84c;
+      --gold-dim: #a07830;
+      --text:     #e8e2d6;
+      --muted:    #8a8278;
+      --white:    #f5f0e8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+
+    .nav-cta {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--gold);
+      border: none;
+      padding: 0.55rem 1.4rem;
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--gold-dim); }
+
+    /* ── HERO STRIP ── */
+    .page-hero {
+      border-bottom: 1px solid var(--border);
+      padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 10vw, 8rem);
+      display: flex;
+      align-items: flex-end;
+      gap: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: 'KVKK';
+      position: absolute;
+      right: -0.05em;
+      bottom: -0.15em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(6rem, 18vw, 14rem);
+      font-weight: 600;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      pointer-events: none;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .hero-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.15;
+    }
+
+    /* ── LAYOUT ── */
+    .content-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+    }
+
+    /* ── INTRO ── */
+    .intro-text {
+      font-size: 1rem;
+      color: var(--muted);
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+      margin-bottom: 3.5rem;
+      line-height: 1.9;
+    }
+
+    /* ── SECTIONS ── */
+    .kvkk-section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.55s forwards;
+    }
+
+    .kvkk-section:last-child { border-bottom: none; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .kvkk-section:nth-child(1) { animation-delay: 0.05s; }
+    .kvkk-section:nth-child(2) { animation-delay: 0.12s; }
+    .kvkk-section:nth-child(3) { animation-delay: 0.19s; }
+    .kvkk-section:nth-child(4) { animation-delay: 0.26s; }
+    .kvkk-section:nth-child(5) { animation-delay: 0.33s; }
+    .kvkk-section:nth-child(6) { animation-delay: 0.40s; }
+    .kvkk-section:nth-child(7) { animation-delay: 0.47s; }
+
+    .section-number {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .section-body p {
+      color: var(--text);
+      margin-bottom: 0.9rem;
+    }
+
+    .section-body p:last-child { margin-bottom: 0; }
+
+    /* rights list */
+    .rights-list {
+      list-style: none;
+      display: grid;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .rights-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      color: var(--text);
+    }
+
+    .rights-list li::before {
+      content: '→';
+      color: var(--gold);
+      font-size: 0.85rem;
+      margin-top: 0.22rem;
+      flex-shrink: 0;
+    }
+
+    /* purposes list */
+    .purpose-list {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .purpose-list li {
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .purpose-list li:hover {
+      border-color: var(--gold-dim);
+      color: var(--text);
+    }
+
+    /* consent box */
+    .consent-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 1.5rem 1.75rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    /* identity card */
+    .identity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 560px) {
+      .identity-grid { grid-template-columns: 1fr; }
+    }
+
+    .id-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1rem 1.25rem;
+    }
+
+    .id-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+
+    .id-value {
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .id-value a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .id-value a:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+
+    /* ── MOBILE NAV ── */
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Taymaz Hukuk Bürosu</a>
+    <ul class="nav-links">
+      <li><a href="index.html#hizmetler">Hizmetler</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="index.html#hakkinda">Hakkında</a></li>
+      <li><a href="index.html#iletisim">İletişim</a></li>
+      <li><a href="kvkk.html" class="active">KVKK</a></li>
+    </ul>
+    <a class="nav-cta" href="index.html#iletisim">Danışma Al</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="page-hero">
+    <div>
+      <p class="hero-label">6698 Sayılı Kanun Kapsamında</p>
+      <h1 class="hero-title">Kişisel Verilerin Korunması<br>Aydınlatma Metni</h1>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="content-wrap">
+
+    <!-- Intro -->
+    <p class="intro-text">
+      Avukat Eslem Batın Taymaz, veri sorumlusu olarak danışanlarının, müvekkillerinin ve web sitesini
+      ziyaret eden ziyaretçilerin kişisel verilerini çeşitli formlar, e-posta, telefon veya diğer yöntemlerle
+      toplamakta, işlemekte, güncellemekte, saklamakta ve sınıflandırmaktadır. 6698 sayılı Kanun gereği
+      gerekli teknik ve idari tedbirler alınarak bu veriler korunmaktadır.
+    </p>
+
+    <!-- 01 -->
+    <section class="kvkk-section">
+      <p class="section-number">01</p>
+      <h2 class="section-title">Temel Tanımlar</h2>
+      <div class="section-body">
+        <p><strong style="color:var(--white)">Kişisel veri;</strong> kimliği belirli veya belirlenebilir gerçek kişiye ilişkin her türlü bilgiyi ifade eder.</p>
+        <p><strong style="color:var(--white)">Kişisel verilerin işlenmesi;</strong> kişisel verilerin elde edilmesi, kaydedilmesi, depolanması, muhafaza edilmesi, değiştirilmesi, yeniden düzenlenmesi, açıklanması, aktarılması, devredilmesi, elde edilebilir hâle getirilmesi, sınıflandırılması ya da kullanılmasının engellenmesi dahil olmak üzere toplandıktan sonra silme, yok etme veya anonim hâle getirme aşamalarını içeren her türlü faaliyettir.</p>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="kvkk-section">
+      <p class="section-number">02</p>
+      <h2 class="section-title">Kişisel Verilerin Toplanması ve İşlenmesi</h2>
+      <div class="section-body">
+        <p>Avukat Eslem Batın Taymaz, internet üzerinden web sitesinde ve hukuk bürosunda işlenme ihtimali bulunan verileriniz ile ilgili olarak veri sorumlusudur.</p>
+        <p>Verileriniz, ofiste fiziksel olarak hazırlanan formlar veya internet sitesi üzerinden elektronik bir şekilde beyan, bilgi ve onayınız doğrultusunda toplanabilecektir.</p>
+        <p>İletişim formunu kullanarak sitemiz üzerinden bize ulaşmanız hâlinde belirttiğiniz ad, soyad, e-posta ve telefon numaranız ile form içeriğindeki kişisel bilgiler tarafımızca toplanarak işlenebilecek; danışma faaliyetleriyle ilgili olarak rızanız dahilinde kullanılacaktır.</p>
+        <p>Hukuki zorunluluk nedeniyle; internet sitesine gerçekleştirdiğiniz ziyarete ilişkin bağlantı/çıkış tarih ve saat bilgisi, internet protokolü, kaynak ve hedef nokta bilgileri ile konum bilgisi ve çerezlerin topladığı veriler işlenebilmektedir.</p>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="kvkk-section">
+      <p class="section-number">03</p>
+      <h2 class="section-title">Kişisel Verilerinizin İşlenme Amaçları</h2>
+      <div class="section-body">
+        <ul class="purpose-list">
+          <li>Avukatlık hizmet ve faaliyetlerinden yararlanabilmeniz için gerekli çalışmaların yapılabilmesi</li>
+          <li>Sunulan hizmetlerin kullanım şekliniz ve ihtiyaçlarınıza göre özelleştirilerek önerilmesi; teknik destek ve kalitenin sağlanması</li>
+          <li>Sosyal ağlar ile sitenin ilişkilendirilmesini sağlayarak hızlı paylaşım yapılabilmesi</li>
+          <li>Hizmet ve faaliyetlerimize ilişkin her türlü soru ve şikayetinize cevap verilebilmesi</li>
+          <li>Veri güvenliği kapsamında tüm gerekli teknik ve idari tedbirlerin alınması</li>
+          <li>Düzenleyici ve denetleyici kurumların talep ve denetimleri doğrultusunda gerekli bilgilerin temini ve idari operasyonların yürütülmesi</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="kvkk-section">
+      <p class="section-number">04</p>
+      <h2 class="section-title">Kişisel Verilerinizin Aktarılması</h2>
+      <div class="section-body">
+        <p>Kişisel verileriniz; tarafınızca yetki verilmiş vekil ve temsilcilerinize, düzenleyici ve denetleyici kurumlar ile mahkeme ve icra müdürlükleri gibi resmî kurumlara, kişisel verilerinizi talep etmeye yetkili diğer kamu kurum veya kuruluşlarına KVKK'nın 8. ve 9. maddelerinde belirtilen şartlar ve amaçlar çerçevesinde aktarılabilecektir.</p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="kvkk-section">
+      <p class="section-number">05</p>
+      <h2 class="section-title">Kişisel Verilerin Korunmasına Yönelik Haklarınız</h2>
+      <div class="section-body">
+        <ul class="rights-list">
+          <li>Kişisel veri işlenip işlenmediğini öğrenme</li>
+          <li>Kişisel veriler işlenmişse buna ilişkin bilgi talep etme</li>
+          <li>Kişisel verilerin işlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
+          <li>Yurt içinde veya yurt dışında kişisel verilerin aktarıldığı üçüncü kişileri bilme</li>
+          <li>Kişisel verilerin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme</li>
+          <li>Kişisel verilerin silinmesini veya yok edilmesini isteme</li>
+          <li>Düzeltme ve silme işlemlerinin kişisel verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme</li>
+          <li>İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhine sonuç çıkmasına itiraz etme</li>
+          <li>Kişisel verilerin kanuna aykırı işlenmesi nedeniyle zarara uğranması hâlinde zararın giderilmesini talep etme</li>
+        </ul>
+        <p style="margin-top:1.25rem;">Taleplerinizi mektup, telefon veya e-posta yoluyla, şahsen başvurarak ya da noter aracılığıyla iletebilirsiniz. Tarafımıza iletilmesinden itibaren en geç <strong style="color:var(--white)">30 gün</strong> içinde talepleriniz ücretsiz olarak sonuçlandırılacaktır.</p>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="kvkk-section">
+      <p class="section-number">06</p>
+      <h2 class="section-title">Açık Rıza ve Onay Metni</h2>
+      <div class="section-body">
+        <div class="consent-box">
+          6698 sayılı Kişisel Verilerin Korunması Kanunu çerçevesinde kişisel/özel nitelikli kişisel verilerimin; fiziksel olarak ofis adresinde veya web sitesi üzerinden tamamen ya da kısmen elde edilmesi, kaydedilmesi, depolanması, değiştirilmesi, güncellenmesi, sınıflandırılması, işlendikleri amaç için gerekli olan ya da ilgili kanunda öngörülen süre kadar muhafaza edilmesi, kanuni nedenlerle veya yapılan işin niteliği gereği üçüncü kişiler ile paylaşılması, yurt dışına aktarılması da dahil olmak üzere yukarıda açıklandığı üzere işlenmesine; konu hakkında tereddüde yer vermeyecek şekilde bilgi sahibi ve aydınlatılmış olarak açık rızam ile onay veriyorum.
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section class="kvkk-section">
+      <p class="section-number">07</p>
+      <h2 class="section-title">Veri Sorumlusunun Kimliği</h2>
+      <div class="section-body">
+        <div class="identity-grid">
+          <div class="id-item">
+            <p class="id-label">Ad Soyad / Unvan</p>
+            <p class="id-value">Avukat Eslem Batın Taymaz</p>
+          </div>
+          <div class="id-item">
+            <p class="id-label">E-posta</p>
+            <p class="id-value"><a href="mailto:batintaymaz@gmail.com">batintaymaz@gmail.com</a></p>
+          </div>
+          <div class="id-item">
+            <p class="id-label">Telefon</p>
+            <p class="id-value"><a href="tel:+905435622469">0 (543) 562 24 69</a></p>
+          </div>
+          <div class="id-item">
+            <p class="id-label">Adres</p>
+            <p class="id-value">Yeni Mahalle, Süleyman Demirel Bulvarı No:13/A, Bucak / Burdur</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <a class="footer-logo" href="index.html">Taymaz Hukuk Bürosu</a>
+    <ul class="footer-links">
+      <li><a href="index.html#hizmetler">Hizmetler</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="index.html#hakkinda">Hakkında</a></li>
+      <li><a href="index.html#iletisim">İletişim</a></li>
+      <li><a href="kvkk.html">KVKK</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Av. Eslem Batın Taymaz · Tüm hakları saklıdır.</p>
+  </footer>
+
+</body>
+</html>
